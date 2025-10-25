@@ -2,5 +2,5 @@
 
 namespace Jīao.Models.Dtos
 {
-    public record GetUserByIdDto(int Id,string FirstName,string LastName,string Address, string Email, string Password, State State);
+    public record GetUserByIdDto(int Id, string FirstName, string LastName, string Address, string Email, State State);
 }

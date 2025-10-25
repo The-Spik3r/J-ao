@@ -1,4 +1,5 @@
-﻿using Jīao.Models.Dtos;
+﻿using Jīao.Entities;
+using Jīao.Models.Dtos;
 using Jīao.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -32,14 +33,16 @@ namespace Jīao.Controllers
                 return BadRequest("El ID ingresado debe ser distinto de 0");
             }
 
-            GetUserByIdDto? user = _userService.GetById(id);
+            var user = _userService.GetById(id);
 
             if (user is null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            var userDto = new UserDto(user.Id,user.FirstName,user.LastName,user.Address,user.Email,user.Password,user.State);
+
+            return Ok(userDto);
 
         }
 
@@ -47,14 +50,28 @@ namespace Jīao.Controllers
         [AllowAnonymous] //Esto lo agregamos porque en nuestro caso el create user lo vamos a usar para el registro (queremos saltear la autenticación)
         public IActionResult CreateUser(CreateAndUpdateUserDto dto)
         {
-            UserDto response = null;
+            if (dto == null)
+            {
+                return BadRequest("El objeto no puede ser nulo");
+            }
+
+            int response;
             try
             {
-                response = _userService.Create(dto);
+                User user = new User
+                {
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName,
+                    Address = dto.Address,
+                    Email = dto.Email,
+                    Password = dto.Password,
+                    State = dto.State
+                };
+                response = _userService.Create(user);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
             return Created("Created", response);
         }
@@ -68,7 +85,17 @@ namespace Jīao.Controllers
             }
             try
             {
-                _userService.Update(dto, userId);
+                User user = new User
+                {
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName,
+                    Address = dto.Address,
+                    Email = dto.Email,
+                    Password = dto.Password,
+                    State = dto.State
+                };
+
+                _userService.Update(user, userId);
             }
             catch (Exception ex)
             {

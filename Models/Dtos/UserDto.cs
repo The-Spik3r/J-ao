@@ -2,5 +2,5 @@
 
 namespace Jīao.Models.Dtos
 {
-        public record UserDto(int Id, string FirstName,string Lastname, string Address,string Email, string Password, State State);
+        public record UserDto(int Id, string FirstName,string LastName, string Address,string Email,  State State);
 }
