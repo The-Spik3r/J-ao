@@ -1,8 +1,10 @@
 
+using Jīao.Data;
 using Jīao.Repositories.Implementations;
 using Jīao.Repositories.Interfaces;
 using Jīao.Service.Implementations;
 using Jīao.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jīao
 {
@@ -18,6 +20,9 @@ namespace Jīao
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<JīaoContext>(dbContextOptions => dbContextOptions.UseSqlite(
+    builder.Configuration["ConnectionStrings:JīaoAPIDBConnectionString"]));
 
             #region DependencyInjections
             builder.Services.AddScoped<IUserService, UserService>();

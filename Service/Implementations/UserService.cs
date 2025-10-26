@@ -27,6 +27,7 @@ namespace Jīao.Service.Implementations
                 LastName = dto.LastName,
                 Password = dto.Password,
                 Email = dto.Email,
+                Address = dto.Address,
                 State = State.Active,
             };
             int newId = _userRepository.Create(newUser);

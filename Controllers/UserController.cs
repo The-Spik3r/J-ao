@@ -40,7 +40,7 @@ namespace Jīao.Controllers
                 return NotFound();
             }
 
-            var userDto = new UserDto(user.Id,user.FirstName,user.LastName,user.Address,user.Email,user.Password,user.State);
+            var userDto = new UserDto(user.Id,user.FirstName,user.LastName,user.Address,user.Email,user.State);
 
             return Ok(userDto);
 
@@ -55,19 +55,10 @@ namespace Jīao.Controllers
                 return BadRequest("El objeto no puede ser nulo");
             }
 
-            int response;
+            UserDto response = null;
             try
             {
-                User user = new User
-                {
-                    FirstName = dto.FirstName,
-                    LastName = dto.LastName,
-                    Address = dto.Address,
-                    Email = dto.Email,
-                    Password = dto.Password,
-                    State = dto.State
-                };
-                response = _userService.Create(user);
+                response = _userService.Create(dto);
             }
             catch (Exception ex)
             {
@@ -85,17 +76,7 @@ namespace Jīao.Controllers
             }
             try
             {
-                User user = new User
-                {
-                    FirstName = dto.FirstName,
-                    LastName = dto.LastName,
-                    Address = dto.Address,
-                    Email = dto.Email,
-                    Password = dto.Password,
-                    State = dto.State
-                };
-
-                _userService.Update(user, userId);
+                _userService.Update(dto, userId);
             }
             catch (Exception ex)
             {

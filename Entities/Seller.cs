@@ -4,22 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Jīao.Entities
 {
-    public class User
+    public class Seller
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string FirstName { get; set; }
+        public string FirtName { get; set; }
         public string LastName { get; set; }
-
-        public string Address { get; set; }
-
-        [EmailAddress]
-        [Required]
-        public string Email { get; set; }
         public string Password { get; set; }
-        public Cart Cart { get; set; }
 
         public State State { get; set; } = State.Active;
+
+        public ICollection<MarketStall> MarketStalls { get; set; } = new List<MarketStall>();
     }
 }
