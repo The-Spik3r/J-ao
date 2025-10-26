@@ -64,6 +64,9 @@ namespace Jīao.Service.Implementations
                 LastName = dto.LastName,
                 FirstName = dto.FirstName,
                 Password = dto.Password,
+                Address = dto.Address,
+                Email = dto.Email,
+                State = dto.State
             };
             _userRepository.Update(user, userId);
         }

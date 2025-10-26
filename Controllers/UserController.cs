@@ -21,7 +21,6 @@ namespace Jīao.Controllers
         [HttpGet]
         public ActionResult<UserDto> GetAll()
         {
-            //No lo estamos verificando, pero por lo general un GetAll de todos los users lo debería poder hacer solo un usuario con rol ADMIN
             return Ok(_userService.GetAll());
         }
 
