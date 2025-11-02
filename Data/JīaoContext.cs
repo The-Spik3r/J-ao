@@ -49,8 +49,9 @@ namespace Jīao.Data
             var seller = new Seller
             {
                 Id = 1,
-                FirtName = "Mei",     
+                FirtName = "Mei",
                 LastName = "Zhang",
+                Email = "mei.zhang@jiao.com",  // 👈 Agrega el email aquí
                 Password = "hash_demo",
                 State = Jīao.Models.Enum.State.Active
             };

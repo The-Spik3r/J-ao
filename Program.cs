@@ -22,11 +22,15 @@ namespace Jīao
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<JīaoContext>(dbContextOptions => dbContextOptions.UseSqlite(
-    builder.Configuration["ConnectionStrings:JīaoAPIDBConnectionString"]));
+            builder.Configuration["ConnectionStrings:JīaoAPIDBConnectionString"]));
 
             #region DependencyInjections
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+            builder.Services.AddScoped<ISellerService, SellerService>();
+            builder.Services.AddScoped<ISellerRepository, SellerRepository>();
             #endregion
 
 

@@ -1,5 +1,6 @@
 ﻿using Jīao.Data;
 using Jīao.Entities;
+using Jīao.Models.Dtos;
 using Jīao.Repositories.Interfaces;
 
 namespace Jīao.Repositories.Implementations
@@ -12,6 +13,11 @@ namespace Jīao.Repositories.Implementations
         public UserRepository(JīaoContext context)
         {
             _context = context;
+        }
+
+        public User? ValidateUser(AuthenticationRequestDto authRequestBody)
+        {
+            return _context.Users.FirstOrDefault(p => p.Email == authRequestBody.Email && p.Password == authRequestBody.Password);
         }
 
         bool IUserRepository.CheckIfUserExists(int userId)
@@ -53,5 +59,7 @@ namespace Jīao.Repositories.Implementations
             userToUpdate.Password = updatedUser.Password;
             _context.SaveChanges();
         }
+
+       
     }
 }

@@ -5,11 +5,12 @@ namespace Jīao.Service.Interfaces
 {
     public interface IUserService
     {
-        bool CheckIfUserExists(int userId);
-        UserDto Create(CreateAndUpdateUserDto dto);
-        IEnumerable<UserDto> GetAll();
-        GetUserByIdDto? GetById(int userId);
-        void RemoveUser(int userId);
-        void Update(CreateAndUpdateUserDto dto, int userId);
+        public bool CheckIfUserExists(int userId);
+        public UserDto Create(CreateAndUpdateUserDto dto);
+        public IEnumerable<UserDto> GetAll();
+        public GetUserByIdDto? GetById(int userId);
+        public void RemoveUser(int userId);
+        public void Update(CreateAndUpdateUserDto dto, int userId);
+        public User? ValidateUser(AuthenticationRequestDto authRequestBody);
     }
 }

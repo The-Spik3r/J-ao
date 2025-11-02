@@ -70,5 +70,13 @@ namespace Jīao.Service.Implementations
             };
             _userRepository.Update(user, userId);
         }
+        public User? ValidateUser(AuthenticationRequestDto authRequestBody)
+        {
+            User? result = null;
+
+            if (!string.IsNullOrEmpty(authRequestBody.Email) && !string.IsNullOrEmpty(authRequestBody.Password)) //verifico que no sean null (no deberían por definición) ni que sea un string vacío
+                result = _userRepository.ValidateUser(authRequestBody: new AuthenticationRequestDto(authRequestBody.Email, authRequestBody.Password));
+            return result;
+        }
     }
 }
