@@ -1,4 +1,3 @@
-
 using Jīao.Data;
 using Jīao.Repositories.Implementations;
 using Jīao.Repositories.Interfaces;
@@ -27,10 +26,17 @@ namespace Jīao
             #region DependencyInjections
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             builder.Services.AddScoped<ISellerService, SellerService>();
             builder.Services.AddScoped<ISellerRepository, SellerRepository>();
+
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            builder.Services.AddScoped<IMarketStallService, MarketStallService>();
+            builder.Services.AddScoped<IMarketStallRepository, MarketStallRepository>();
             #endregion
 
 
