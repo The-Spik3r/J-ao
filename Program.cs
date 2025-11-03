@@ -37,6 +37,9 @@ namespace Jīao
 
             builder.Services.AddScoped<IMarketStallService, MarketStallService>();
             builder.Services.AddScoped<IMarketStallRepository, MarketStallRepository>();
+
+            builder.Services.AddScoped<IMenuService, MenuService>();
+            builder.Services.AddScoped<IMenuRepository, MenuRepository>();
             #endregion
 
 
