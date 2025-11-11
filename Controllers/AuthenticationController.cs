@@ -9,38 +9,18 @@ namespace Jīao.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IUserService _userService;
         private readonly ISellerService _sellerService;
         private readonly IAuthenticationService _authenticationService;
 
         public AuthenticationController(
-            IUserService userService,
             ISellerService sellerService,
             IAuthenticationService authenticationService)
         {
-            _userService = userService;
             _sellerService = sellerService;
             _authenticationService = authenticationService;
         }
 
-        [HttpPost("user/authenticate")]
-        public IActionResult UserAuthenticate(AuthenticationRequestDto authenticationRequestBody)
-        {
-            var user = _userService.ValidateUser(authenticationRequestBody);
-
-            if (user is null)
-                return Unauthorized();
-
-            var token = _authenticationService.GenerateTokenJWT(
-                userType.User,
-                user.Id,
-                user.FirstName,
-                user.LastName);
-
-            return Ok(token);
-        }
-
-        [HttpPost("seller/authenticate")]
+        [HttpPost("authenticate")]
         public IActionResult SellerAuthenticate(AuthenticationRequestDto authenticationRequestBody)
         {
             var seller = _sellerService.ValidateSeller(authenticationRequestBody);
