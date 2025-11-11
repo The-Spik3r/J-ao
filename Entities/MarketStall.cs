@@ -12,6 +12,7 @@ namespace Jīao.Entities
         public string Description { get; set; }
         public string Location { get; set; }
 
+        public int Views { get; set; }
         public int SellerId { get; set; }
 
         [ForeignKey("SellerId")]

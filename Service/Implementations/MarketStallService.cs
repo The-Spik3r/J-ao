@@ -31,6 +31,7 @@ namespace Jīao.Service.Implementations
 
         public MarketStall? GetById(int marketStallId)
         {
+            
             return _repository.GetById(marketStallId);
         }
 

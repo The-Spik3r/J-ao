@@ -104,7 +104,7 @@ namespace Jīao.Controllers
         [Route("me")]
         public ActionResult<GetSellerByIdDto> GetSellerInfo()
         {
-            int userId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type.Contains("nameidentifier"))!.Value);
+            int userId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type.Contains("sub"))!.Value);
             var user = _sellerService.GetById(userId);
             return Ok(user);
         }
