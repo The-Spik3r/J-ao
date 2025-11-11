@@ -37,7 +37,7 @@ namespace Jīao.Controllers
                 return NotFound();
             }
 
-            var userDto = new CategoryDto(category.Id, category.Name, category.MarketStallId);
+            var userDto = new CategoryDto(category.Id, category.Name, category.MarketStallId, category.Description, category.FotoUrl);
 
             return Ok(userDto);
 

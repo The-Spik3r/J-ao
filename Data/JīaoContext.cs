@@ -71,6 +71,8 @@ namespace Jīao.Data
             {
                 Id = 1,
                 Name = "Ramen",
+                Description = "Authentic Japanese ramen bowls with rich broths",
+                FotoUrl = "https://pics.example/category-ramen.jpg",
                 MarketStallId = stall.Id
             };
             modelBuilder.Entity<Category>().HasData(cat);
@@ -83,6 +85,7 @@ namespace Jīao.Data
                 Stock = 50,
                 Description = "Caldo intenso, chashu, negi",
                 ImageUrl = "https://pics.example/ramen1.jpg",
+                IsFeatured = true, // Featured item
                 CategoryId = cat.Id
             };
             var menu2 = new Menu
@@ -93,6 +96,7 @@ namespace Jīao.Data
                 Stock = 100,
                 Description = "Dumplings de cerdo",
                 ImageUrl = "https://pics.example/gyoza.jpg",
+                IsFeatured = false,
                 CategoryId = cat.Id
             };
             modelBuilder.Entity<Menu>().HasData(menu1, menu2);

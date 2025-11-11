@@ -12,6 +12,8 @@ namespace Jīao.Models.Dtos
         public string ImageUrl { get; init; }
         public int CategoryId { get; init; }
 
+        public bool IsFeatured { get; init; }
+
         public CreateAndUpdateMenuDto() { }
     }
 }

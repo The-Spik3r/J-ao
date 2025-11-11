@@ -2,6 +2,7 @@
 using Jīao.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jīao.Migrations
 {
     [DbContext(typeof(JīaoContext))]
-    partial class JīaoContextModelSnapshot : ModelSnapshot
+    [Migration("20251108162735_descriptionphotoToCategory")]
+    partial class descriptionphotoToCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.10");
@@ -65,14 +68,14 @@ namespace Jīao.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FotoUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("MarketStallId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("fotoUrl")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -87,9 +90,9 @@ namespace Jīao.Migrations
                         {
                             Id = 1,
                             Description = "Authentic Japanese ramen bowls with rich broths",
-                            FotoUrl = "https://pics.example/category-ramen.jpg",
                             MarketStallId = 1,
-                            Name = "Ramen"
+                            Name = "Ramen",
+                            fotoUrl = "https://pics.example/category-ramen.jpg"
                         });
                 });
 

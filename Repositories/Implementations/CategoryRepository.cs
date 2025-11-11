@@ -25,6 +25,8 @@ namespace Jīao.Repositories.Implementations
             {
                 MarketStallId = newCategory.MarketStallId,
                 Name = newCategory.Name,
+                Description = newCategory.Description,
+                FotoUrl = newCategory.FotoUrl
             };
 
             Category category = _context.Categories.Add(categoryNew).Entity;
@@ -53,6 +55,8 @@ namespace Jīao.Repositories.Implementations
             Category categoryToUpdate = _context.Categories.First(s => s.Id == categoryId);
             categoryToUpdate.Name = updatedCategory.Name;
             categoryToUpdate.MarketStallId = updatedCategory.MarketStallId;
+            categoryToUpdate.Description = updatedCategory.Description;
+            categoryToUpdate.FotoUrl = updatedCategory.FotoUrl;
             _context.SaveChanges();
         }
     }

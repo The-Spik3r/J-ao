@@ -29,6 +29,7 @@ namespace Jīao.Repositories.Implementations
 Description = newMenu.Description,
  ImageUrl = newMenu.ImageUrl,
         CategoryId = newMenu.CategoryId,
+        IsFeatured = newMenu.IsFeatured
             };
 
       Menu menu = _context.Menus.Add(menuNew).Entity;
@@ -61,7 +62,8 @@ Description = newMenu.Description,
        menuToUpdate.Description = updatedMenu.Description;
      menuToUpdate.ImageUrl = updatedMenu.ImageUrl;
 menuToUpdate.CategoryId = updatedMenu.CategoryId;
-     _context.SaveChanges();
+            menuToUpdate.IsFeatured = updatedMenu.IsFeatured;
+            _context.SaveChanges();
      }
     }
 }
