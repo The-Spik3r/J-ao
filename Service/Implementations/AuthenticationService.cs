@@ -36,10 +36,10 @@ namespace Jīao.Service.Implementations
 
             var claimsForToken = new List<Claim>
             {
-                new Claim("sub", id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, id.ToString()),
                 new Claim("given_name", firstName),
                 new Claim("family_name", lastName),
-                new Claim(ClaimTypes.Role, role) 
+                new Claim(ClaimTypes.Role, role)
             };
 
             var jwtSecurityToken = new JwtSecurityToken(

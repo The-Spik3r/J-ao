@@ -4,6 +4,7 @@ using Jīao.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Jīao.Controllers
 {
@@ -46,7 +47,7 @@ namespace Jīao.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous] 
+        [AllowAnonymous]
         public IActionResult CreateSeller(CreateAndUpdateSellerDto dto)
         {
             if (dto == null)
@@ -84,6 +85,28 @@ namespace Jīao.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        [Route("me")]
+        public ActionResult<GetSellerByIdDto> GetSellerInfo()
+        {
+            var userIdClaim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized("No se pudo obtener la información del usuario autenticado");
+            }
+
+            int userId = Int32.Parse(userIdClaim.Value);
+            var user = _sellerService.GetById(userId);
+
+            if (user is null)
+            {
+                return NotFound("Vendedor no encontrado");
+            }
+
+            return Ok(user);
+        }
+
         [HttpDelete]
         public IActionResult DeleteSeller(int id)
         {
@@ -99,14 +122,6 @@ namespace Jīao.Controllers
             return NoContent();
         }
 
-        [HttpGet]
-        [Route("me")]
-        public ActionResult<GetSellerByIdDto> GetSellerInfo()
-        {
-            int userId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type.Contains("sub"))!.Value);
-            var user = _sellerService.GetById(userId);
-            return Ok(user);
-        }
 
         [HttpGet("{sellerId}/marketstall")]
         public IActionResult GetSellerMarketStall(int sellerId)
