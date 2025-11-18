@@ -2,6 +2,7 @@
 using Jīao.Entities;
 using Jīao.Models.Dtos;
 using Jīao.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jīao.Repositories.Implementations
 {
@@ -28,12 +29,12 @@ namespace Jīao.Repositories.Implementations
 
         public List<Seller> GetAll()
         {
-            return _context.Sellers.ToList();
+            return _context.Sellers.Include(s => s.MarketStall).ToList();
         }
 
         public Seller? GetById(int sellerId)
         {
-            return _context.Sellers.SingleOrDefault(s => s.Id == sellerId);
+            return _context.Sellers.Include(s => s.MarketStall).SingleOrDefault(s => s.Id == sellerId);
         }
 
         public void RemoveSeller(int sellerId)
@@ -44,13 +45,13 @@ namespace Jīao.Repositories.Implementations
 
         public void Update(Seller updatedSeller, int sellerId)
         {
-            Seller sellerToUpdate = _context.Sellers.First(s => s.Id == updatedSeller.Id);
+            Seller sellerToUpdate = _context.Sellers.First(s => s.Id == sellerId);
             sellerToUpdate.Email = updatedSeller.Email;
             sellerToUpdate.State = updatedSeller.State;
-            sellerToUpdate.MarketStalls = updatedSeller.MarketStalls;
             sellerToUpdate.Password = updatedSeller.Password;
-            sellerToUpdate.FirtName = updatedSeller.FirtName;
+            sellerToUpdate.FirstName = updatedSeller.FirstName;
             sellerToUpdate.LastName = updatedSeller.LastName;
+            
             _context.SaveChanges();
         }
 

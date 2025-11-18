@@ -9,7 +9,7 @@ namespace Jīao.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string FirtName { get; set; }
+        public string FirstName { get; set; }
 
         [EmailAddress]
         [Required]
@@ -19,6 +19,6 @@ namespace Jīao.Entities
 
         public State State { get; set; } = State.Active;
 
-        public ICollection<MarketStall> MarketStalls { get; set; } = new List<MarketStall>();
+        public MarketStall? MarketStall { get; set; }
     }
 }

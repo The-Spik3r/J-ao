@@ -25,10 +25,11 @@ namespace Jīao.Data
                 .HasForeignKey<Cart>(c => c.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // One-to-one relationship between Seller and MarketStall
             modelBuilder.Entity<Seller>()
-                .HasMany(s => s.MarketStalls)
+                .HasOne(s => s.MarketStall)
                 .WithOne(ms => ms.Seller)
-                .HasForeignKey(ms => ms.SellerId)
+                .HasForeignKey<MarketStall>(ms => ms.SellerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<MarketStall>()
@@ -49,7 +50,7 @@ namespace Jīao.Data
             var seller = new Seller
             {
                 Id = 1,
-                FirtName = "Mei",
+                FirstName = "Mei",
                 LastName = "Zhang",
                 Email = "mei.zhang@jiao.com",  // 👈 Agrega el email aquí
                 Password = "hash_demo",

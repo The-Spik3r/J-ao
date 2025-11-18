@@ -42,6 +42,26 @@ namespace Jīao.Controllers
             return Ok(marketStallDto);
         }
 
+        [HttpGet("seller/{sellerId}")]
+        public IActionResult GetBySellerId(int sellerId)
+        {
+            if (sellerId == 0)
+            {
+                return BadRequest("El ID del vendedor debe ser distinto de 0");
+            }
+
+            var marketStall = _marketStallService.GetBySellerId(sellerId);
+
+            if (marketStall is null)
+            {
+                return NotFound("No se encontró un puesto de mercado para este vendedor");
+            }
+
+            var marketStallDto = new MarketStallDto(marketStall.Id, marketStall.Name, marketStall.Description, marketStall.Location, marketStall.SellerId);
+
+            return Ok(marketStallDto);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public IActionResult CreateMarketStall(CreateAndUpdateMarketStallDto dto)
@@ -55,6 +75,10 @@ namespace Jīao.Controllers
             try
             {
                 response = _marketStallService.Create(dto);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
@@ -73,6 +97,10 @@ namespace Jīao.Controllers
             try
             {
                 _marketStallService.Update(dto, marketStallId);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {

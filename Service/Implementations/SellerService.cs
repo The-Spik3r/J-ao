@@ -23,20 +23,19 @@ namespace Jīao.Service.Implementations
             Seller seller = new Seller()
             {
                 Email = dto.Email,
-                FirtName = dto.FirstName,
+                FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Password = dto.Password,
-                MarketStalls = dto.MarketStalls,
                 State = dto.State,
             };
             int newId = _sellerRepository.Create(seller);
-            var newSellerDto = new SellerDto(newId, seller.FirtName, seller.LastName, seller.Email, seller.State);
+            var newSellerDto = new SellerDto(newId, seller.FirstName, seller.LastName, seller.Email, seller.State);
             return newSellerDto;
         }
 
         public IEnumerable<SellerDto> GetAll()
         {
-            return _sellerRepository.GetAll().Select(s => new SellerDto(s.Id, s.FirtName, s.LastName, s.Email, s.State));
+            return _sellerRepository.GetAll().Select(s => new SellerDto(s.Id, s.FirstName, s.LastName, s.Email, s.State));
         }
 
         public GetSellerByIdDto? GetById(int sellerId)
@@ -44,7 +43,19 @@ namespace Jīao.Service.Implementations
             var seller = _sellerRepository.GetById(sellerId);
             if (seller is not null)
             {
-                return new GetSellerByIdDto(seller.Id, seller.FirtName, seller.LastName, seller.Email, seller.State);
+                MarketStallDto? marketStallDto = null;
+                if (seller.MarketStall != null)
+                {
+                    marketStallDto = new MarketStallDto(
+                        seller.MarketStall.Id,
+                        seller.MarketStall.Name,
+                        seller.MarketStall.Description,
+                        seller.MarketStall.Location,
+                        seller.MarketStall.SellerId
+                    );
+                }
+
+                return new GetSellerByIdDto(seller.Id, seller.FirstName, seller.LastName, seller.Email, seller.State, marketStallDto);
             }
             return null;
         }
@@ -60,9 +71,8 @@ namespace Jīao.Service.Implementations
             {
                 Email = dto.Email,
                 State = dto.State,
-                FirtName = dto.FirstName,
+                FirstName = dto.FirstName,
                 LastName = dto.LastName,
-                MarketStalls = dto.MarketStalls,
                 Password = dto.Password,
             };
             _sellerRepository.Update(seller, sellerId);

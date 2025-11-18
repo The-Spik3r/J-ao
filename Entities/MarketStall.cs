@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jīao.Entities
 {
+    [Index(nameof(SellerId), IsUnique = true)]
     public class MarketStall
     {
         [Key]

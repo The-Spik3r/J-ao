@@ -31,7 +31,7 @@ namespace Jīao.Controllers
             var token = _authenticationService.GenerateTokenJWT(
                 userType.Seller,
                 seller.Id,
-                seller.FirtName,
+                seller.FirstName,
                 seller.LastName);
 
             return Ok(token);

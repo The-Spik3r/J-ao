@@ -11,5 +11,7 @@ namespace Jīao.Service.Interfaces
         public void RemoveMarketStall(int marketStallId);
         public void Update(CreateAndUpdateMarketStallDto updatedMarketStall, int marketStallId);
         public bool CheckIfMarketStallExists(int marketStallId);
+        public bool CheckIfSellerHasMarketStall(int sellerId);
+        public MarketStall? GetBySellerId(int sellerId);
     }
 }

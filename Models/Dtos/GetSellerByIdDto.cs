@@ -2,5 +2,5 @@
 
 namespace Jīao.Models.Dtos
 {
-    public record GetSellerByIdDto(int Id, string FirstName, string LastName, string Email, State State);
+    public record GetSellerByIdDto(int Id, string FirstName, string LastName, string Email, State State, MarketStallDto? MarketStall);
 }

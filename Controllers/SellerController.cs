@@ -1,5 +1,4 @@
-﻿
-using Jīao.Entities;
+﻿using Jīao.Entities;
 using Jīao.Models.Dtos;
 using Jīao.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -40,7 +39,7 @@ namespace Jīao.Controllers
                 return NotFound();
             }
 
-            var userDto = new SellerDto(user.Id,user.FirstName,user.LastName,user.Email,user.State);
+            var userDto = new SellerDto(user.Id, user.FirstName, user.LastName, user.Email, user.State);
 
             return Ok(userDto);
 
@@ -107,6 +106,28 @@ namespace Jīao.Controllers
             int userId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type.Contains("sub"))!.Value);
             var user = _sellerService.GetById(userId);
             return Ok(user);
+        }
+
+        [HttpGet("{sellerId}/marketstall")]
+        public IActionResult GetSellerMarketStall(int sellerId)
+        {
+            if (sellerId == 0)
+            {
+                return BadRequest("El ID del vendedor debe ser distinto de 0");
+            }
+
+            var seller = _sellerService.GetById(sellerId);
+            if (seller is null)
+            {
+                return NotFound("Vendedor no encontrado");
+            }
+
+            if (seller.MarketStall is null)
+            {
+                return NotFound("El vendedor no tiene un puesto de mercado asignado");
+            }
+
+            return Ok(seller.MarketStall);
         }
 
     }

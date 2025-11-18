@@ -2,6 +2,7 @@
 using Jīao.Entities;
 using Jīao.Models.Dtos;
 using Jīao.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jīao.Repositories.Implementations
 {
@@ -17,6 +18,11 @@ namespace Jīao.Repositories.Implementations
         public bool CheckIfMarketStallExists(int marketStallId)
         {
             return _context.MarketStalls.Any(ms => ms.Id == marketStallId);
+        }
+
+        public bool CheckIfSellerHasMarketStall(int sellerId)
+        {
+            return _context.MarketStalls.Any(ms => ms.SellerId == sellerId);
         }
 
         public int Create(CreateAndUpdateMarketStallDto newMarketStall)
@@ -36,12 +42,17 @@ namespace Jīao.Repositories.Implementations
 
         public List<MarketStall> GetAll()
         {
-            return _context.MarketStalls.ToList();
+            return _context.MarketStalls.Include(ms => ms.Seller).ToList();
         }
 
         public MarketStall? GetById(int marketStallId)
         {
-            return _context.MarketStalls.SingleOrDefault(ms => ms.Id == marketStallId);
+            return _context.MarketStalls.Include(ms => ms.Seller).SingleOrDefault(ms => ms.Id == marketStallId);
+        }
+
+        public MarketStall? GetBySellerId(int sellerId)
+        {
+            return _context.MarketStalls.Include(ms => ms.Seller).SingleOrDefault(ms => ms.SellerId == sellerId);
         }
 
         public void RemoveMarketStall(int marketStallId)
