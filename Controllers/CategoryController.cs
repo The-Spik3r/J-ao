@@ -19,7 +19,38 @@ namespace Jīao.Controllers
         [HttpGet]
         public ActionResult<UserDto> GetAll()
         {
-            return Ok(_categoryService.GetAll());
+            var categories = _categoryService.GetAll();
+            
+            var categoryDtos = categories.Select(c => new
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Description = c.Description,
+                FotoUrl = c.FotoUrl,
+                MarketStallId = c.MarketStallId,
+                MarketStall = c.MarketStall != null ? new
+                {
+                    Id = c.MarketStall.Id,
+                    Name = c.MarketStall.Name,
+                    Description = c.MarketStall.Description,
+                    Location = c.MarketStall.Location,
+                    Views = c.MarketStall.Views,
+                    SellerId = c.MarketStall.SellerId
+                } : null,
+                Menus = c.Menus.Select(m => new
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Price = m.Price,
+                    Stock = m.Stock,
+                    Description = m.Description,
+                    ImageUrl = m.ImageUrl,
+                    IsFeatured = m.IsFeatured,
+                    CategoryId = m.CategoryId
+                }).ToList()
+            }).ToList();
+
+            return Ok(categoryDtos);
         }
 
         [HttpGet("{id}")]
@@ -37,10 +68,36 @@ namespace Jīao.Controllers
                 return NotFound();
             }
 
-            var userDto = new CategoryDto(category.Id, category.Name, category.MarketStallId, category.Description, category.FotoUrl);
+            var categoryDto = new
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Description = category.Description,
+                FotoUrl = category.FotoUrl,
+                MarketStallId = category.MarketStallId,
+                MarketStall = category.MarketStall != null ? new
+                {
+                    Id = category.MarketStall.Id,
+                    Name = category.MarketStall.Name,
+                    Description = category.MarketStall.Description,
+                    Location = category.MarketStall.Location,
+                    Views = category.MarketStall.Views,
+                    SellerId = category.MarketStall.SellerId
+                } : null,
+                Menus = category.Menus.Select(m => new
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Price = m.Price,
+                    Stock = m.Stock,
+                    Description = m.Description,
+                    ImageUrl = m.ImageUrl,
+                    IsFeatured = m.IsFeatured,
+                    CategoryId = m.CategoryId
+                }).ToList()
+            };
 
-            return Ok(userDto);
-
+            return Ok(categoryDto);
         }
 
         [HttpPost]

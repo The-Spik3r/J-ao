@@ -19,7 +19,35 @@ namespace Jīao.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_marketStallService.GetAll());
+            var marketStalls = _marketStallService.GetAll();
+        
+            var marketStallDtos = marketStalls.Select(ms => new
+            {
+                Id = ms.Id,
+                Name = ms.Name,
+                Description = ms.Description,
+                Location = ms.Location,
+                Views = ms.Views,
+                SellerId = ms.SellerId,
+                Seller = ms.Seller != null ? new
+                {
+                    Id = ms.Seller.Id,
+                    FirstName = ms.Seller.FirstName,
+                    LastName = ms.Seller.LastName,
+                    Email = ms.Seller.Email,
+                    State = ms.Seller.State
+                } : null,
+                Categories = ms.Categories.Select(c => new
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    MarketStallId = c.MarketStallId,
+                    Description = c.Description,
+                    FotoUrl = c.FotoUrl
+                }).ToList()
+            }).ToList();
+  
+            return Ok(marketStallDtos);
         }
 
         [HttpGet("{id}")]
@@ -37,7 +65,31 @@ namespace Jīao.Controllers
                 return NotFound();
             }
 
-            var marketStallDto = new MarketStallDto(marketStall.Id, marketStall.Name, marketStall.Description, marketStall.Location, marketStall.SellerId);
+            var marketStallDto = new
+            {
+                Id = marketStall.Id,
+                Name = marketStall.Name,
+                Description = marketStall.Description,
+                Location = marketStall.Location,
+                Views = marketStall.Views,
+                SellerId = marketStall.SellerId,
+                Seller = marketStall.Seller != null ? new
+                {
+                    Id = marketStall.Seller.Id,
+                    FirstName = marketStall.Seller.FirstName,
+                    LastName = marketStall.Seller.LastName,
+                    Email = marketStall.Seller.Email,
+                    State = marketStall.Seller.State
+                } : null,
+                Categories = marketStall.Categories.Select(c => new
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    MarketStallId = c.MarketStallId,
+                    Description = c.Description,
+                    FotoUrl = c.FotoUrl
+                }).ToList()
+            };
 
             return Ok(marketStallDto);
         }
@@ -57,7 +109,31 @@ namespace Jīao.Controllers
                 return NotFound("No se encontró un puesto de mercado para este vendedor");
             }
 
-            var marketStallDto = new MarketStallDto(marketStall.Id, marketStall.Name, marketStall.Description, marketStall.Location, marketStall.SellerId);
+            var marketStallDto = new
+            {
+                Id = marketStall.Id,
+                Name = marketStall.Name,
+                Description = marketStall.Description,
+                Location = marketStall.Location,
+                Views = marketStall.Views,
+                SellerId = marketStall.SellerId,
+                Seller = marketStall.Seller != null ? new
+                {
+                    Id = marketStall.Seller.Id,
+                    FirstName = marketStall.Seller.FirstName,
+                    LastName = marketStall.Seller.LastName,
+                    Email = marketStall.Seller.Email,
+                    State = marketStall.Seller.State
+                } : null,
+                Categories = marketStall.Categories.Select(c => new
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    MarketStallId = c.MarketStallId,
+                    Description = c.Description,
+                    FotoUrl = c.FotoUrl
+                }).ToList()
+            };
 
             return Ok(marketStallDto);
         }

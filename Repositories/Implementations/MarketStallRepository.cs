@@ -42,17 +42,26 @@ namespace Jīao.Repositories.Implementations
 
         public List<MarketStall> GetAll()
         {
-            return _context.MarketStalls.Include(ms => ms.Seller).ToList();
+            return _context.MarketStalls
+                .Include(ms => ms.Categories)
+                .Include(ms => ms.Seller)
+                .ToList();
         }
 
         public MarketStall? GetById(int marketStallId)
         {
-            return _context.MarketStalls.Include(ms => ms.Seller).SingleOrDefault(ms => ms.Id == marketStallId);
+            return _context.MarketStalls
+                .Include(ms => ms.Seller)
+                .Include(ms => ms.Categories)
+                .SingleOrDefault(ms => ms.Id == marketStallId);
         }
 
         public MarketStall? GetBySellerId(int sellerId)
         {
-            return _context.MarketStalls.Include(ms => ms.Seller).SingleOrDefault(ms => ms.SellerId == sellerId);
+            return _context.MarketStalls
+                .Include(ms => ms.Seller)
+                .Include(ms => ms.Categories)
+                .SingleOrDefault(ms => ms.SellerId == sellerId);
         }
 
         public void RemoveMarketStall(int marketStallId)

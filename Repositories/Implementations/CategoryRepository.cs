@@ -2,6 +2,7 @@
 using Jīao.Entities;
 using Jīao.Models.Dtos;
 using Jīao.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jīao.Repositories.Implementations
 {
@@ -36,18 +37,24 @@ namespace Jīao.Repositories.Implementations
 
         public List<Category> GetAll()
         {
-            return _context.Categories.ToList();
+            return _context.Categories
+          .Include(c => c.MarketStall)
+       .Include(c => c.Menus)
+      .ToList();
         }
 
         public Category? GetById(int categoryId)
         {
-            return _context.Categories.SingleOrDefault(c => c.Id == categoryId);
+            return _context.Categories
+          .Include(c => c.MarketStall)
+         .Include(c => c.Menus)
+         .SingleOrDefault(c => c.Id == categoryId);
         }
 
         public void RemoveCategory(int categoryId)
         {
             _context.Categories.Remove(_context.Categories.Single(c => c.Id == categoryId));
-            _context.SaveChanges() ;
+            _context.SaveChanges();
         }
 
         public void Update(CreateAndUpdateCategoryDto updatedCategory, int categoryId)
