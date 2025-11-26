@@ -16,6 +16,10 @@ namespace Jīao.Entities
         public bool IsFeatured { get; set; }
         public int CategoryId { get; set; }
 
+        public bool IsHappyHour { get; set; }
+
+        public int DiscountPercentage { get; set; }
+
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 

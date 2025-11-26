@@ -1,5 +1,6 @@
 ﻿using Jīao.Entities;
 using Jīao.Models.Dtos;
+using Jiao.Models.Dtos;
 using Jīao.Repositories.Interfaces;
 using Jīao.Service.Interfaces;
 
@@ -42,8 +43,12 @@ namespace Jīao.Service.Implementations
 
         public MarketStall? GetById(int marketStallId)
         {
-
-            return _repository.GetById(marketStallId);
+            var marketStall = _repository.GetById(marketStallId);
+            if (marketStall != null)
+            {
+                _repository.IncrementViews(marketStallId);
+            }
+            return marketStall;
         }
 
         public MarketStall? GetBySellerId(int sellerId)
@@ -70,6 +75,16 @@ namespace Jīao.Service.Implementations
             }
 
             _repository.Update(updatedMarketStall, marketStallId);
+        }
+
+        public void IncrementViews(int marketStallId)
+        {
+            _repository.IncrementViews(marketStallId);
+        }
+
+        public List<SimpleMarketStallReportDto> Analist()
+        {
+           return _repository.Analist();
         }
     }
 }

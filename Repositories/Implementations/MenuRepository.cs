@@ -29,7 +29,9 @@ namespace Jīao.Repositories.Implementations
 Description = newMenu.Description,
  ImageUrl = newMenu.ImageUrl,
         CategoryId = newMenu.CategoryId,
-        IsFeatured = newMenu.IsFeatured
+        IsFeatured = newMenu.IsFeatured,
+                IsHappyHour = newMenu.IsHappyHour,
+       DiscountPercentage = newMenu.DiscountPercentage
             };
 
       Menu menu = _context.Menus.Add(menuNew).Entity;
@@ -54,16 +56,18 @@ Description = newMenu.Description,
       }
 
         public void Update(CreateAndUpdateMenuDto updatedMenu, int menuId)
-        {
- Menu menuToUpdate = _context.Menus.First(m => m.Id == menuId);
-        menuToUpdate.Name = updatedMenu.Name;
-     menuToUpdate.Price = updatedMenu.Price;
-        menuToUpdate.Stock = updatedMenu.Stock;
-       menuToUpdate.Description = updatedMenu.Description;
-     menuToUpdate.ImageUrl = updatedMenu.ImageUrl;
-menuToUpdate.CategoryId = updatedMenu.CategoryId;
+     {
+   Menu menuToUpdate = _context.Menus.First(m => m.Id == menuId);
+            menuToUpdate.Name = updatedMenu.Name;
+          menuToUpdate.Price = updatedMenu.Price;
+     menuToUpdate.Stock = updatedMenu.Stock;
+            menuToUpdate.Description = updatedMenu.Description;
+            menuToUpdate.ImageUrl = updatedMenu.ImageUrl;
+            menuToUpdate.CategoryId = updatedMenu.CategoryId;
             menuToUpdate.IsFeatured = updatedMenu.IsFeatured;
-            _context.SaveChanges();
-     }
+         menuToUpdate.IsHappyHour = updatedMenu.IsHappyHour;
+            menuToUpdate.DiscountPercentage = updatedMenu.DiscountPercentage;
+ _context.SaveChanges();
+        }
     }
 }

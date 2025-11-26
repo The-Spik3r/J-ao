@@ -87,7 +87,9 @@ namespace Jīao.Data
                 Description = "Caldo intenso, chashu, negi",
                 ImageUrl = "https://pics.example/ramen1.jpg",
                 IsFeatured = true, // Featured item
-                CategoryId = cat.Id
+                CategoryId = cat.Id,
+                IsHappyHour = true,
+                DiscountPercentage = 15
             };
             var menu2 = new Menu
             {
@@ -98,7 +100,9 @@ namespace Jīao.Data
                 Description = "Dumplings de cerdo",
                 ImageUrl = "https://pics.example/gyoza.jpg",
                 IsFeatured = false,
-                CategoryId = cat.Id
+                CategoryId = cat.Id,
+                IsHappyHour = false,
+                DiscountPercentage = 0
             };
             modelBuilder.Entity<Menu>().HasData(menu1, menu2);
 

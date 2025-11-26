@@ -1,6 +1,7 @@
 ﻿using Jīao.Data;
 using Jīao.Entities;
 using Jīao.Models.Dtos;
+using Jiao.Models.Dtos;
 using Jīao.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -79,5 +80,29 @@ namespace Jīao.Repositories.Implementations
             marketStallToUpdate.SellerId = updatedMarketStall.SellerId;
             _context.SaveChanges();
         }
+
+        public void IncrementViews(int marketStallId)
+        {
+            var marketStall = _context.MarketStalls.FirstOrDefault(ms => ms.Id == marketStallId);
+            if (marketStall != null)
+            {
+                marketStall.Views++;
+                _context.SaveChanges();
+            }
+        }
+
+        public List<SimpleMarketStallReportDto> Analist()
+        {
+            return _context.MarketStalls
+                .OrderByDescending(ms => ms.Views)
+                .Select(ms => new SimpleMarketStallReportDto
+                {
+                    MarketStallName = ms.Name,
+                    Views = ms.Views
+                })
+                .ToList();
+        }
+
+       
     }
 }

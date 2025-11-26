@@ -199,5 +199,21 @@ namespace Jīao.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("analytics")]
+        public IActionResult GetAnalytics()
+        {
+            try
+            {
+                var analytics = _marketStallService.Analist();
+                return Ok(analytics);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+       
     }
 }

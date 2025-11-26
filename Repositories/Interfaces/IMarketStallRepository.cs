@@ -1,5 +1,6 @@
 ﻿using Jīao.Entities;
 using Jīao.Models.Dtos;
+using Jiao.Models.Dtos;
 
 namespace Jīao.Repositories.Interfaces
 {
@@ -13,5 +14,7 @@ namespace Jīao.Repositories.Interfaces
         public bool CheckIfMarketStallExists(int marketStallId);
         public bool CheckIfSellerHasMarketStall(int sellerId);
         public MarketStall? GetBySellerId(int sellerId);
+        public void IncrementViews(int marketStallId);
+        public List<SimpleMarketStallReportDto> Analist();
     }
 }

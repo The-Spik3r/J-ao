@@ -13,6 +13,8 @@ namespace Jīao.Models.Dtos
         public int CategoryId { get; init; }
 
         public bool IsFeatured { get; init; }
+        public bool IsHappyHour { get; init; }
+        public int DiscountPercentage { get; init; }
 
         public CreateAndUpdateMenuDto() { }
     }
